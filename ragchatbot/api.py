@@ -3,15 +3,25 @@ from flask import Flask, request, jsonify
 from ragchatbot.models import LLMModel
 
 app = Flask(__name__)
-llm_model = LLMModel(model_name='mistralai/Mixtral-8x7B-Instruct-v0.1')
+
+def create_app(config):
+    app.model = LLMModel(main_model=config['main_model'], sub_model=config['sub_model'], device=config['device'])
+    return app
 
 @app.route('/answer', methods=['POST'])
-def get_answer():
-    data = request.get_json()
-    question = data['question']
-    context = data['context']
-    answer = llm_model.answer_question(question, context)
-    return jsonify(answer=answer)
+def answer():
+    print("answer api start")
+    content = request.json
+    question = content['question']
+    context = content['context']
+    print(question)
+    print(context)
+    response = app.model.answer_question(question, context, device)
+    return jsonify({'answer': response})
 
 def start_api_server(config):
+    global app
+    global device
+    device=config['device']
+    app = create_app(config)
     app.run(host=config['host'], port=config['port'])

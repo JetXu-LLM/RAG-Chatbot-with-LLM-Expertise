@@ -1,8 +1,7 @@
 # utils.py
 import json
 
-def load_configuration(config_path):
-    with open(config_path) as config_file:
-        return json.load(config_file)
-
-# 其他可能的工具函数...
+def load_configuration(file_path):
+    with open(file_path, 'r') as config_file:
+        config = json.load(config_file)
+    return config
