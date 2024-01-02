@@ -16,10 +16,10 @@ class LLMModel:
             self.sub_model = AutoModelForCausalLM.from_pretrained(sub_model, device_map=device, trust_remote_code=True, torch_dtype=torch.float16)
             self.sub_model.eval()
 
-    def answer_question(self, question, context, device):
+    def answer_question(self, question, context):
         # 对问题和上下文进行编码
-        inputs = self.tokenizer.encode_plus(question, context, add_special_tokens=True, return_tensors='pt').to(device)
+        inputs = self.tokenizer.encode_plus(question, context, add_special_tokens=True, return_tensors='pt').to(self.model.device)
         # 生成回答
-        reply_ids = self.model.generate(inputs['input_ids'], attention_mask=inputs['attention_mask'], max_new_tokens=2000, do_sample=True, temperature=0.2, top_k=50, top_p=0.95, pad_token_id=self.tokenizer.eos_token_id)
+        reply_ids = self.model.generate(inputs['input_ids'], attention_mask=inputs['attention_mask'], max_new_tokens=4000, pad_token_id=self.tokenizer.eos_token_id)
         # 解码生成的回答
         return self.tokenizer.decode(reply_ids[0], skip_special_tokens=True)
