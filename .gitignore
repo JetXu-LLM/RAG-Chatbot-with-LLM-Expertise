@@ -3,3 +3,4 @@ __pycache__/
 instance/
 .env
 output_log
+.ipynb
