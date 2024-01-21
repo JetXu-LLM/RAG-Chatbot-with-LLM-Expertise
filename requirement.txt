@@ -2,3 +2,7 @@ langchain
 llama_index
 transformers
 PyMilvus
+flask
+torch
+json
+request

@@ -1,3 +1,5 @@
+#After main is called, you could launch index.html in your browser to chat with the bot.
+
 # main.py
 import sys
 import logging

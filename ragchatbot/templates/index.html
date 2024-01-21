@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q&A Chatbot</title>
+    <style>
+        #loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <script>
+        async function askQuestion() {
+            // 显示加载指示器
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('askButton').disabled = true; // 禁用按钮防止重复点击
+
+            // 获取用户输入的问题和上下文
+            var question = document.getElementById('question').value;
+            var context = document.getElementById('context').value;
+
+            // 设置请求的body
+            var requestBody = { question: question, context: context };
+
+            // 发送POST请求到/answer端点
+            try {
+                const response = await fetch('/answer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // 获取并显示回答
+                const data = await response.json();
+                document.getElementById('answer').innerText = data.answer;
+            } catch (error) {
+                console.error('Could not get an answer: ', error);
+                document.getElementById('answer').innerText = 'Error: Could not retrieve answer.';
+            } finally {
+                // 隐藏加载指示器
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('askButton').disabled = false; // 重新启用按钮
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Ask a Question</h1>
+    <textarea id="question" placeholder="Enter your question here..." rows="4" cols="50"></textarea>
+    <br>
+    <textarea id="context" placeholder="Enter context here..." rows="4" cols="50"></textarea>
+    <br>
+    <button id="askButton" onclick="askQuestion()">Ask</button>
+    <div id="loading">Loading...</div>
+    <h2>Answer:</h2>
+    <div id="answer"></div>
+</body>
+</html>

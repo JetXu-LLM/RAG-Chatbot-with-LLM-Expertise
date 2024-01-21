@@ -1,7 +1,7 @@
 {
-    "main_model": "mistralai/Mistral-7B-Instruct-v0.2",
-    "sub_model": "mistralai/Mistral-7B-Instruct-v0.2",
+    "main_model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "sub_model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
     "host": "0.0.0.0",
-    "port": 80,
-    "device": "mps"
+    "port": 1024,
+    "device": "auto"
 }
