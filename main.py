@@ -7,23 +7,23 @@ from ragchatbot.api import start_api_server
 from ragchatbot.utils import load_configuration
 
 def main():
-    # 解析命令行参数
+    # Parse command line arguments
     config = load_configuration('config.json')
     main_model = config.get('main_model')
     sub_model = config.get('sub_model')
 
-    # 加载配置
+    # Load configuration
     config = load_configuration('./config.json')
     
-    # 启动API服务器
+    # Start the API server
     start_api_server(config)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
-    # 打开一个文件用于写入
+    # Open a file for writing
     f = open('output_log', 'w')
-    original_stdout = sys.stdout  # 保存原始的sys.stdout
-    original_stderr = sys.stderr  # 保存原始的sys.stderr
+    original_stdout = sys.stdout  # Save the original sys.stdout
+    original_stderr = sys.stderr  # Save the original sys.stderr
     sys.stdout = f
     sys.stderr = f
     try:

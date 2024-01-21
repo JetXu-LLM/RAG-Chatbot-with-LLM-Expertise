@@ -14,18 +14,18 @@
     </style>
     <script>
         async function askQuestion() {
-            // 显示加载指示器
+            // Display the loading indicator
             document.getElementById('loading').style.display = 'block';
-            document.getElementById('askButton').disabled = true; // 禁用按钮防止重复点击
+            document.getElementById('askButton').disabled = true; // Disable the button to prevent multiple clicks
 
-            // 获取用户输入的问题和上下文
+            // Get the user's input question and context
             var question = document.getElementById('question').value;
             var context = document.getElementById('context').value;
 
-            // 设置请求的body
+            // Set up the body of the request
             var requestBody = { question: question, context: context };
 
-            // 发送POST请求到/answer端点
+            // Send a POST request to the /answer endpoint
             try {
                 const response = await fetch('/answer', {
                     method: 'POST',
@@ -39,16 +39,16 @@
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                // 获取并显示回答
+                // Retrieve and display the answer
                 const data = await response.json();
                 document.getElementById('answer').innerText = data.answer;
             } catch (error) {
                 console.error('Could not get an answer: ', error);
                 document.getElementById('answer').innerText = 'Error: Could not retrieve answer.';
             } finally {
-                // 隐藏加载指示器
+                // Hide the loading indicator
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('askButton').disabled = false; // 重新启用按钮
+                document.getElementById('askButton').disabled = false; // Re-enable the button
             }
         }
     </script>
