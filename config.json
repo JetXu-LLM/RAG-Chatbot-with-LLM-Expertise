@@ -1,6 +1,6 @@
 {
-    "main_model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
-    "sub_model": "mistralai/Mixtral-8x7B-Instruct-v0.1",
+    "main_model": "internlm/internlm2-chat-7b",
+    "sub_model": "internlm/internlm2-chat-7b",
     "host": "0.0.0.0",
     "port": 1024,
     "device": "auto"
