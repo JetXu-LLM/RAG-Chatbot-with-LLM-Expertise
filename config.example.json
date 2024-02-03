@@ -1,0 +1,9 @@
+{
+    "_comment": "This is a sample config file. Please replace the following with your own values and change file name to config.json",
+    "main_model": "mistralai/Mistral-7B-Instruct-v0.2",
+    "sub_model": "mistralai/Mistral-7B-Instruct-v0.2",
+    "host": "0.0.0.0",
+    "port": 1024,
+    "device": "auto",
+    "hugging_face_hub_token": "Your hugging_face_hub_token"
+}

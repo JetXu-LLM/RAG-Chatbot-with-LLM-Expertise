@@ -1,6 +1,4 @@
 # modules.py
-import sys
-import logging
 
 class Initializer:
     def __init__(self, config):
@@ -64,14 +62,6 @@ class ResponseGenerator:
 class Logger:
     @staticmethod
     def log_info(message):
-        # Code to log informational messages
-        logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
-        # Open a file for writing
-        f = open('../output_log', 'w')
-        original_stdout = sys.stdout  # Save the original sys.stdout
-        original_stderr = sys.stderr  # Save the original sys.stderr
-        sys.stdout = f
-        sys.stderr = f
         pass
 
     @staticmethod

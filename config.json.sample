@@ -1,8 +1,0 @@
-{
-    "main_model": "internlm/internlm2-chat-7b",
-    "sub_model": "internlm/internlm2-chat-7b",
-    "host": "0.0.0.0",
-    "port": 1024,
-    "device": "auto",
-    "hugging_face_hub_token": "Your hugging_face_hub_token"
-}

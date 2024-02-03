@@ -2,21 +2,14 @@
 
 # main.py
 from ragchatbot.api import start_api_server
-from ragchatbot.utils import load_configuration
+from ragchatbot.utils import setup_logging
+import ragchatbot.config as config
 
 def main():
-    # Load configuration
-    config = load_configuration('./config.json')
-    
+    # This sets up logging as configured in logging.json
+    setup_logging()
     # Start the API server
-    start_api_server(config)
+    start_api_server()
 
 if __name__ == "__main__":
-    
-    try:
-        print("Main start")
-        main()
-    finally:
-        sys.stdout = original_stdout
-        sys.stderr = original_stderr
-        f.close()
+    main()

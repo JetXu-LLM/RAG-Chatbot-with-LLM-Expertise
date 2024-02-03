@@ -1,11 +1,12 @@
 # api.py
 from flask import Flask, request, jsonify, render_template
 from ragchatbot.models import LLMModel
+from ragchatbot.config import Config
 
 app = Flask(__name__)
 
-def create_app(config):
-    app.model = LLMModel(main_model=config['main_model'], sub_model=config['sub_model'], device=config['device'])
+def create_app():
+    app.model = LLMModel(main_model=Config.get('main_model'), sub_model=Config.get('sub_model'), device=Config.get('device'))
     return app
 
 @app.route('/')
@@ -19,12 +20,13 @@ def answer():
     content = request.json
     question = content['question']
     context = content['context']
+    max_tokens = Config.get('max_tokens', 8000)
     print(question)
     print(context)
-    response = app.model.answer_question(question, context)
+    response = app.model.answer_question(question, context, max_tokens)
     return jsonify({'answer': response})
 
-def start_api_server(config):
+def start_api_server():
     global app
-    app = create_app(config)
-    app.run(host=config['host'], port=config['port'])
+    app = create_app()
+    app.run(host=Config.get('host'), port=Config.get('port'))
