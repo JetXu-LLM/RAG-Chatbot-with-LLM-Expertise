@@ -1,74 +1,34 @@
 # modules.py
+from llama_index.core.storage.storage_context import StorageContext
+from llama_index.legacy.vector_stores.milvus import MilvusVectorStore
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+from ragchatbot.config import Config
+import textwrap
 
-class Initializer:
-    def __init__(self, config):
-        self.config = config
-        self.llm = None
-        self.embedding_model = None
-        self.vector_database = None
+class IndexManager:
+    def __init__(self):
+        self.vector_store = MilvusVectorStore(dim=Config.get('vector_dim'), collection_name=Config.get('collection_name'))
+        self.storage_context = StorageContext.from_defaults(vector_store=self.vector_store)
+        self._initialize_or_connect_index()
 
-    def setup_llm(self):
-        # Code to set up the large language model
+    def _initialize_or_connect_index(self):
+        documents = SimpleDirectoryReader("../data/").load_data()
+        self.index = VectorStoreIndex.from_documents(
+            documents, storage_context=self.storage_context
+        )
+
+    def load_and_index_documents(self):
+        self.query_engine = self.index.as_query_engine()
+
+    def reconnect_to_existing_index(self):
         pass
 
-    def setup_embedding_model(self):
-        # Code to set up the embedding model for llama_index
+    def search_in_index(self, top_k=10):
         pass
 
-    def connect_vector_database(self):
-        # Code to connect to the Milvus vector database
+    def answer_question(self, question):
+        response = self.query_engine.query(question)
+        return textwrap.fill(str(response), 100)
+
+    def close(self):
         pass
-
-
-class DocumentManager:
-    def __init__(self, vector_database):
-        self.vector_database = vector_database
-
-    def vectorize_documents(self):
-        # Code to vectorize documents
-        pass
-
-    def store_vectors(self):
-        # Code to store vectors in the Milvus vector database
-        pass
-
-    def update_index(self):
-        # Code to update the index with new documents
-        pass
-
-
-class QueryEngine:
-    def __init__(self, vector_database):
-        self.vector_database = vector_database
-
-    def search(self, query):
-        # Code to perform search using llama_index
-        pass
-
-    def retrieve_documents(self, query):
-        # Code to retrieve documents based on the search results
-        pass
-
-
-class ResponseGenerator:
-    def __init__(self, llm):
-        self.llm = llm
-
-    def generate_response(self, retrieved_documents, query):
-        # Code to generate a response using the retrieved documents
-        pass
-
-
-class Logger:
-    @staticmethod
-    def log_info(message):
-        pass
-
-    @staticmethod
-    def log_error(message):
-        # Code to log error messages
-        pass
-
-
-# The ChatbotEngine class would be in api.py as it orchestrates the API calls
-# You would import the above classes into api.py and use them to create the chatbot service

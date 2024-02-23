@@ -6,3 +6,7 @@ flask
 torch
 json
 request
+PyMilvus
+milvus
+llama-index-embeddings-huggingface
+llama-index-llms-huggingface

@@ -1,15 +1,16 @@
 #After main is called, you could launch index.html in your browser to chat with the bot.
-
+#run "bash standalone_embed.sh start" in milvus folder to start milvus server before run main.py
 # main.py
 from ragchatbot.api import start_api_server
-from ragchatbot.utils import setup_logging
-import ragchatbot.config as config
+from ragchatbot.initializer import initialize
 
 def main():
-    # This sets up logging as configured in logging.json
-    setup_logging()
+    # Initialization
+    initialize()
+    # Start knowledge base preparation
+    
     # Start the API server
-    start_api_server()
+    # start_api_server()
 
 if __name__ == "__main__":
     main()

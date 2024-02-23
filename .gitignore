@@ -5,3 +5,4 @@ instance/
 output_log
 .ipynb
 config.json
+milvus/volumes/
